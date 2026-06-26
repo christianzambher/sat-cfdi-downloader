@@ -1,0 +1,8 @@
+[project]
+name = "sat-cfdi-downloader"
+version = "0.1.0"
+description = "Python implementation of the SAT CFDI Mass Download Web Services."
+requires-python = ">=3.13"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
