@@ -1,5 +1,7 @@
 from pathlib import Path
-from sat_cfdi.crypto import load_certificate
+from sat_cfdi.crypto import (
+    get_certificate_info, 
+    load_certificate,)
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
@@ -8,7 +10,9 @@ def main():
 
     certificate = load_certificate(certificate_path)
 
-    print(certificate)
+    info = get_certificate_info(certificate)
+
+    print(info)
 
 
 if __name__ == "__main__":
