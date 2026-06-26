@@ -3,6 +3,8 @@ from sat_cfdi.crypto import (
     get_certificate_info, 
     load_certificate,)
 
+from sat_cfdi.display import print_certificate_summary
+
 def main():
     project_root = Path(__file__).resolve().parents[2]
 
@@ -12,7 +14,7 @@ def main():
 
     info = get_certificate_info(certificate)
 
-    print(info)
+    print_certificate_summary(info)
 
 
 if __name__ == "__main__":
