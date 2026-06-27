@@ -1,4 +1,4 @@
-from sat_cfdi.models import CertificateInfo
+from sat_cfdi.models.certificate import CertificateInfo
 
 
 def print_certificate_summary(info: CertificateInfo) -> None:

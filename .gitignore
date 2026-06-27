@@ -38,6 +38,7 @@ certificados/*
 
 # Password files
 *.txt
+!requirements.txt
 
 # OS
 .DS_Store

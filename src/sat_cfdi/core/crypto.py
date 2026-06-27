@@ -1,7 +1,7 @@
 from pathlib import Path
 from cryptography import x509
 from cryptography.x509.oid import NameOID
-from sat_cfdi.models import CertificateInfo
+from sat_cfdi.models.certificate import CertificateInfo
 
 
 def load_certificate(path: str | Path) -> x509.Certificate:
