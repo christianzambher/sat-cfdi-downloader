@@ -1,4 +1,1 @@
-from .crypto import (
-    load_certificate,
-    get_certificate_info,
-)
+from .crypto import get_certificate_info, load_certificate

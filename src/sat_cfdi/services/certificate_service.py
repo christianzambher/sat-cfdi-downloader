@@ -1,10 +1,6 @@
 from pathlib import Path
 
-from sat_cfdi.core.crypto import (
-    load_certificate,
-    get_certificate_info,
-)
-
+from sat_cfdi.core.crypto import get_certificate_info, load_certificate
 from sat_cfdi.models.certificate import CertificateInfo
 
 

@@ -1,11 +1,11 @@
 from pathlib import Path
+
 from cryptography import x509
 from cryptography.x509.oid import NameOID
+
+from sat_cfdi.exceptions import (CertificateNotFoundError,
+                                 InvalidCertificateError)
 from sat_cfdi.models.certificate import CertificateInfo
-from sat_cfdi.exceptions import (
-    CertificateNotFoundError,
-    InvalidCertificateError,
-)
 
 
 def load_certificate(path: str | Path) -> x509.Certificate:
@@ -16,28 +16,21 @@ def load_certificate(path: str | Path) -> x509.Certificate:
     path = Path(path)
 
     if not path.exists():
-        raise CertificateNotFoundError(
-            f"Certificate not found: {path}"
-        )
-    
+        raise CertificateNotFoundError(f"Certificate not found: {path}")
+
     try:
         with open(path, "rb") as cert_file:
             return x509.load_der_x509_certificate(cert_file.read())
     except ValueError as exc:
-        raise InvalidCertificateError(
-            "Invalid X509 certificate."
-        ) from exc
+        raise InvalidCertificateError("Invalid X509 certificate.") from exc
+
 
 def get_certificate_info(certificate) -> CertificateInfo:
     subject = certificate.subject
 
-    common_name = subject.get_attributes_for_oid(
-        NameOID.COMMON_NAME
-    )[0].value
+    common_name = subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value
 
-    rfc = subject.get_attributes_for_oid(
-        NameOID.SERIAL_NUMBER
-    )[0].value
+    rfc = subject.get_attributes_for_oid(NameOID.SERIAL_NUMBER)[0].value
 
     issuer = certificate.issuer.rfc4514_string()
 
