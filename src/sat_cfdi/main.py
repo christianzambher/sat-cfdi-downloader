@@ -1,7 +1,7 @@
 from sat_cfdi.core.paths import CERTIFICATES_DIR
 from sat_cfdi.services.certificate_service import CertificateService
 from sat_cfdi.ui.display import print_certificate_summary
-from sat_cfdi.exceptions import SATCFDIException
+from sat_cfdi.exceptions import SATCFDIError
 
 def main():
     try:
@@ -10,7 +10,7 @@ def main():
         )
 
         print_certificate_summary(certificate)
-    except SATCFDIException as e:
+    except SATCFDIError as e:
         print(f"Error: {e}")
 
 if __name__ == "__main__":
