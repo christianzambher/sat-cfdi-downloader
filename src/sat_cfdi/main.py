@@ -9,6 +9,9 @@ from sat_cfdi.exceptions import SATCFDIError
 from sat_cfdi.services.certificate_service import CertificateService
 from sat_cfdi.ui.display import print_certificate_summary
 from sat_cfdi.services.efirma_service import EFirmaService
+from sat_cfdi.security.timestamp import (
+    generate_timestamp,
+)
 
 def main():
     try:
@@ -21,6 +24,10 @@ def main():
         print_certificate_summary(efirma.info)
 
         print("\n✓ e.firma loaded successfully")
+
+        timestamp = generate_timestamp()
+
+        print(timestamp)
     except SATCFDIError as e:
         print(f"Error: {e}")
 
