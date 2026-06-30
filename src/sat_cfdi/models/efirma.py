@@ -17,3 +17,15 @@ class EFirma:
     private_key: RSAPrivateKey
 
     info: CertificateInfo
+
+    @property
+    def rfc(self) -> str:
+        return self.info.rfc
+
+    @property
+    def owner(self) -> str:
+        return self.info.common_name
+
+    @property
+    def serial_number(self) -> str:
+        return self.info.serial_number
