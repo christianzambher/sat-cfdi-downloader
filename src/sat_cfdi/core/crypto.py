@@ -7,6 +7,7 @@ from sat_cfdi.exceptions import (CertificateNotFoundError,
                                  InvalidCertificateError)
 from sat_cfdi.models.certificate import CertificateInfo
 
+from cryptography.hazmat.primitives.serialization import load_der_private_key
 
 def load_certificate(path: str | Path) -> x509.Certificate:
     """
@@ -42,3 +43,16 @@ def get_certificate_info(certificate) -> CertificateInfo:
         valid_from=certificate.not_valid_before_utc,
         valid_to=certificate.not_valid_after_utc,
     )
+
+def load_private_key(path: Path, password: str):
+
+    path = Path(path)
+
+    with path.open("rb") as key_file:
+
+        private_key = load_der_private_key(
+            key_file.read(),
+            password=password.encode(),
+        )
+
+    return private_key
