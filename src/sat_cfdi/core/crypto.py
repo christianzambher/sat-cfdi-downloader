@@ -9,6 +9,8 @@ from sat_cfdi.models.certificate import CertificateInfo
 
 from cryptography.hazmat.primitives.serialization import load_der_private_key
 
+from cryptography.hazmat.primitives import serialization
+
 def load_certificate(path: str | Path) -> x509.Certificate:
     """
     Load a DER encoded X509 certificate.
@@ -56,3 +58,25 @@ def load_private_key(path: Path, password: str):
         )
 
     return private_key
+
+def validate_key_pair(certificate, private_key) -> bool:
+    """
+    Validate that the certificate and private key belong together.
+    """
+
+    certificate_public_key = certificate.public_key().public_bytes(
+        encoding=serialization.Encoding.DER,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo,
+    )
+
+    private_public_key = private_key.public_key().public_bytes(
+        encoding=serialization.Encoding.DER,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo,
+    )
+
+    if certificate_public_key != private_public_key:
+        raise InvalidCertificateError(
+            "The certificate does not match the private key."
+        )
+
+    return True
