@@ -12,6 +12,8 @@ from sat_cfdi.services.efirma_service import EFirmaService
 from sat_cfdi.security.timestamp import (
     generate_timestamp,
 )
+import xml.etree.cElementTree as ET
+from sat_cfdi.xml.envelope import build_envelope
 
 def main():
     try:
@@ -25,9 +27,11 @@ def main():
 
         print("\n✓ e.firma loaded successfully")
 
-        timestamp = generate_timestamp()
+        # timestamp = generate_timestamp()
+        # print(timestamp)
 
-        print(timestamp)
+        envelope = build_envelope()
+        ET.dump(envelope)
     except SATCFDIError as e:
         print(f"Error: {e}")
 
