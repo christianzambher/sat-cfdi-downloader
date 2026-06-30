@@ -14,6 +14,7 @@ from sat_cfdi.security.timestamp import (
 )
 import xml.etree.cElementTree as ET
 from sat_cfdi.xml.envelope import build_envelope
+from sat_cfdi.xml.body import build_authentication_body
 
 def main():
     try:
@@ -31,6 +32,10 @@ def main():
         # print(timestamp)
 
         envelope = build_envelope()
+
+        build_authentication_body(
+            envelope
+        )
         ET.dump(envelope)
     except SATCFDIError as e:
         print(f"Error: {e}")
