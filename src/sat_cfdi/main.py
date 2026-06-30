@@ -8,26 +8,19 @@ from sat_cfdi.core.crypto import (
 from sat_cfdi.exceptions import SATCFDIError
 from sat_cfdi.services.certificate_service import CertificateService
 from sat_cfdi.ui.display import print_certificate_summary
-
+from sat_cfdi.services.efirma_service import EFirmaService
 
 def main():
     try:
-        certificate = load_certificate(CERTIFICATES_DIR / "fiel.cer")
-
-        info = get_certificate_info(certificate)
-
-        print_certificate_summary(info)
-
-        private_key = load_private_key(
-            CERTIFICATES_DIR / "fiel.key",
-            "Visual23"
+        efirma = EFirmaService.load(
+            certificate_path=CERTIFICATES_DIR / "fiel.cer",
+            private_key_path=CERTIFICATES_DIR / "fiel.key",
+            password="Visual23"
         )
 
-        print(type(private_key))
+        print_certificate_summary(efirma.info)
 
-        validate_key_pair(certificate, private_key)
-
-        print("✓ Certificate and private key match")
+        print("\n✓ e.firma loaded successfully")
     except SATCFDIError as e:
         print(f"Error: {e}")
 
