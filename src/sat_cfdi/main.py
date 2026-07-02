@@ -9,13 +9,14 @@ from sat_cfdi.exceptions import SATCFDIError
 from sat_cfdi.services.certificate_service import CertificateService
 from sat_cfdi.ui.display import print_certificate_summary
 from sat_cfdi.services.efirma_service import EFirmaService
-from sat_cfdi.security.timestamp import (
-    generate_timestamp,
-)
+# from sat_cfdi.security.timestamp import (
+#     generate_timestamp,
+# )
 import xml.etree.cElementTree as ET
 from sat_cfdi.xml.envelope import build_envelope
 from sat_cfdi.xml.body import build_authentication_body
 from sat_cfdi.xml.security import build_security_header
+from sat_cfdi.xml.timestamp import generate_timestamp,build_timestamp
 
 def main():
     try:
@@ -38,10 +39,17 @@ def main():
             envelope
         )
 
-        build_security_header(
+        security = build_security_header(
             envelope,
         )
-        
+
+        timestamp = generate_timestamp()
+
+        build_timestamp(
+            security,
+            timestamp,
+        )
+
         ET.dump(envelope)
     except SATCFDIError as e:
         print(f"Error: {e}")
